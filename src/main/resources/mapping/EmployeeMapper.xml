@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- here namespace No special meaning -->
+
+<mapper namespace="com.springjqgird.dao.EmployeeDao">
+
+
+	<resultMap type="EmployeeVo" id="result">
+	   <id property="user_id" column="user_id"/>
+	    <result property="user_name" column="user_name"/>
+	    <result property="user_salary" column="user_salary"/>
+	    <result property="user_join" column="user_join"/>
+	    <result property="user_phone" column="user_phone"/>
+		 <result property="user_address" column="user_address"/>
+	</resultMap>
+
+  <select id="getAll" resultType="com.springjqgird.vo.EmployeeVo" resultMap="result" >
+        select * from employee
+   </select>
+    
+    <select id="getById" resultType="EmployeeVo" parameterType="string">
+        select * from employee where id = #{id};
+   </select> 
+   
+    <select id="searchName" parameterType="string" resultType="employeevo">
+        select * from employee where name like #{user_name};
+    </select>
+    
+    <insert id="insert" parameterType="EmployeeVo">
+
+       insert into employee values(#{id},#{user_name},#{user_salary},#{user_join},#{user_phone},#{user_address});
+    </insert>
+    
+    <update id="update" parameterType="EmployeeVo">
+        update employee set user_name=#{user_name},user_salary=#{user_salary},user_join = #{user_join},
+        user_phone = #{user_phone},
+        user_address = #{user_address}
+         where id=#{id}
+    </update>
+    
+    <delete id="delete" parameterType="string">
+        delete from employee where id = #{id}
+    </delete>
+
+</mapper>
